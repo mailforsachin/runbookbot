@@ -48,8 +48,8 @@ var bot = new builder.UniversalBot(connector, function (session) {
 
     // capture conversation information  
     //
-    session.conversationData[timestamp.toISOString().replace(/:/g,"-")] = session.message.text;
+    session.conversationData[Date()] = session.message.text;
 
     session.send("You said: %s", session.message.text);
     session.save();
-}).set('storage', tableStorage);
+}).set('storage', cosmosStorage);
