@@ -27,6 +27,9 @@ var docDbClient = new azure.DocumentDbClient(documentDbOptions);
 
 var cosmosStorage = new azure.AzureBotStorage({ gzipData: false }, docDbClient);
 
+var azureTableClient = new azure.AzureTableClient(tableName, storageName, storageKey);
+
+var tableStorage = new azure.AzureBotStorage({gzipData: false}, azureTableClient);
 
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
@@ -49,4 +52,4 @@ var bot = new builder.UniversalBot(connector, function (session) {
 
     session.send("You said: %s", session.message.text);
     session.save();
-}).set('storage', cosmosStorage);
+}).set('storage', tableStorage);
